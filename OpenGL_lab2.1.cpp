@@ -1,4 +1,4 @@
-﻿#define _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
 #include <GL/glut.h>
 #include <cmath>
 #include <iostream>
@@ -12,12 +12,12 @@ float winWid = 800;
 
 
 void cat1() {
+	glClear(GL_COLOR_BUFFER_BIT);
 	float sideSize1 = 0.5;
 	float sideSize2 = 0.4;
 	float angle = 20;
 	float inclined = sideSize1 * cos(angle * M_PI / 180);
 
-	cout << inclined;
 	glBegin(GL_QUADS);
 
 	//######################################################
@@ -101,15 +101,16 @@ void cat1() {
 	glVertex2f(2 * -sideSize1 * cos(angle * M_PI / 180) * 0.2 - sideSize1 * cos(angle * M_PI / 180) * 0.2, 0.2 + sideSize1 * sin(angle * M_PI / 180) * 0.2);
 
 	glEnd();
+	glutSwapBuffers();
 }
 
 void cat2() {
+	glClear(GL_COLOR_BUFFER_BIT);
 	float sideSize1 = 0.5;
 	float sideSize2 = 0.4;
 	float angle = 20;
 	float inclined = sideSize1 * cos(angle * M_PI / 180);
 
-	cout << inclined;
 	glBegin(GL_QUADS);
 
 	//######################################################
@@ -193,15 +194,16 @@ void cat2() {
 	glVertex2f(2 * sideSize1 * cos(angle * M_PI / 180) * 0.2 + sideSize1 * cos(angle * M_PI / 180) * 0.2, 0.2 + sideSize1 * sin(angle * M_PI / 180) * 0.2);
 
 	glEnd();
+	glutSwapBuffers();
 }
 
 void cat3() {
+	glClear(GL_COLOR_BUFFER_BIT);
 	float sideSize1 = 0.5;
 	float sideSize2 = 0.4;
 	float angle = 20;
 	float inclined = sideSize1 * cos(angle * M_PI / 180);
 
-	cout << inclined;
 	glBegin(GL_QUADS);
 
 	//######################################################
@@ -228,50 +230,53 @@ void cat3() {
 	glVertex2f(0, sideSize2);
 
 	glEnd();
+	glutSwapBuffers();
 }
 
 int i = 0;
 
-void keyboard(unsigned char key, int x, int y) {
+void keyboard(int key, int x, int y) {
 	switch (key) {
-	case '1':
+	case GLUT_KEY_LEFT:
 		i += 1;
 		break;
-	case '2':
+	case GLUT_KEY_RIGHT:
 		i -= 1;
 		break;
 	}
-
-	
+	glutPostRedisplay();
 }
 
-void init() {
-	glClearColor(0.8, 0.8, 0.8, 1.0);
+void display() {
+	switch (i % 4) {
+	case 0:
+		cat1();
+		break;
+	case 1:
+		cat2();
+		break;
+	case 2:
+		cat3();
+		break;
+	case 3:
+		cat3();
+		break;
+	}
 }
 
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize(800, 800);
-	glutCreateWindow("Rotating Cube with Kitty Face");
-	
-	switch (i % 4) {
-	case 0:
-		glutDisplayFunc(cat1);glutPostRedisplay();
-		break;
-	case 1:
-		glutDisplayFunc(cat2); glutPostRedisplay();
-		break;
-	case 2:
-		glutDisplayFunc(cat3); glutPostRedisplay();
-		break;
-	case 4:
-		glutDisplayFunc(cat3); glutPostRedisplay();
-		break;
-	}
 
-	glutKeyboardFunc(keyboard);
-	init();
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowSize(winWid, winHei);
+	glutCreateWindow("Cat head");
+
+	glutDisplayFunc(display);
+	glutSpecialFunc(keyboard);
+	
+	glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
+
 	glutMainLoop();
+
 	return 0;
 }
