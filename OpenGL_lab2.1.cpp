@@ -26,18 +26,22 @@ void cat1() {
 	glColor3f(0.1, 0.1, 0.1);
 	glVertex2f(0, 0);
 	glVertex2f(0, sideSize2);
+	glColor3f(0.2, 0.2, 0.2);
 	glVertex2f(sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
 	glVertex2f(sideSize1 * cos(angle * M_PI / 180), sideSize1 * sin(angle * M_PI / 180));
 
 
 	// Top
+	glColor3f(0.1, 0.1, 0.1);
 	glVertex2f(0, sideSize2);
 	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
 	glVertex2f(0, sideSize2 + 2 * sideSize1 * sin(angle * M_PI / 180));
+	glColor3f(0.2, 0.2, 0.2);
 	glVertex2f(sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
 
 
 	// Front
+	glColor3f(0.1, 0.1, 0.1);
 	glVertex2f(0, 0);
 	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize1 * sin(angle * M_PI / 180));
 	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
@@ -126,7 +130,9 @@ void cat2() {
 	// Top
 	glVertex2f(0, sideSize2);
 	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
+	glColor3f(0.2, 0.2, 0.2);
 	glVertex2f(0, sideSize2 + 2 * sideSize1 * sin(angle * M_PI / 180));
+	glColor3f(0.1, 0.1, 0.1);
 	glVertex2f(sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
 
 
@@ -218,16 +224,63 @@ void cat3() {
 
 	// Top
 	glVertex2f(0, sideSize2);
+	glColor3f(0.2, 0.2, 0.2);
 	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
+	glColor3f(0.1, 0.1, 0.1);
 	glVertex2f(0, sideSize2 + 2 * sideSize1 * sin(angle * M_PI / 180));
 	glVertex2f(sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
 
 
 	// Front
 	glVertex2f(0, 0);
+	glColor3f(0.2, 0.2, 0.2);
 	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize1 * sin(angle * M_PI / 180));
 	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
+	glColor3f(0.1, 0.1, 0.1);
 	glVertex2f(0, sideSize2);
+
+	glEnd();
+	glutSwapBuffers();
+}
+
+void cat4() {
+	glClear(GL_COLOR_BUFFER_BIT);
+	float sideSize1 = 0.5;
+	float sideSize2 = 0.4;
+	float angle = 20;
+	float inclined = sideSize1 * cos(angle * M_PI / 180);
+
+	glBegin(GL_QUADS);
+
+	//######################################################
+	// Head
+	// Right
+	glColor3f(0.2, 0.2, 0.2);
+	glVertex2f(0, 0);
+	glVertex2f(0, sideSize2);
+	glColor3f(0.1, 0.1, 0.1);
+	glVertex2f(sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
+	glVertex2f(sideSize1 * cos(angle * M_PI / 180), sideSize1 * sin(angle * M_PI / 180));
+
+
+	// Top
+	glColor3f(0.2, 0.2, 0.2);
+	glVertex2f(0, sideSize2);
+	glColor3f(0.1, 0.1, 0.1);
+	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
+	glVertex2f(0, sideSize2 + 2 * sideSize1 * sin(angle * M_PI / 180));
+	glVertex2f(sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
+
+
+	// Front
+	glColor3f(0.2, 0.2, 0.2);
+	glVertex2f(0, 0);
+	glColor3f(0.1, 0.1, 0.1);
+	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize1 * sin(angle * M_PI / 180));
+	glVertex2f(-sideSize1 * cos(angle * M_PI / 180), sideSize2 + sideSize1 * sin(angle * M_PI / 180));
+	glColor3f(0.2, 0.2, 0.2);
+	glVertex2f(0, sideSize2);
+	glColor3f(0.1, 0.1, 0.1);
 
 	glEnd();
 	glutSwapBuffers();
@@ -238,10 +291,10 @@ int i = 0;
 void keyboard(int key, int x, int y) {
 	switch (key) {
 	case GLUT_KEY_LEFT:
-		i += 1;
+		i -= 1;
 		break;
 	case GLUT_KEY_RIGHT:
-		i -= 1;
+		i += 1;
 		break;
 	}
 	glutPostRedisplay();
@@ -259,7 +312,7 @@ void display() {
 		cat3();
 		break;
 	case 3:
-		cat3();
+		cat4();
 		break;
 	}
 }
@@ -271,9 +324,11 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(winWid, winHei);
 	glutCreateWindow("Cat head");
 
+	glTranslatef(0.0, -0.4, 0.0);
+	glScalef(1, 1.2, 1);
 	glutDisplayFunc(display);
 	glutSpecialFunc(keyboard);
-	
+
 	glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
 
 	glutMainLoop();
